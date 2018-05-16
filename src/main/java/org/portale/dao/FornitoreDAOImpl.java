@@ -49,10 +49,10 @@ public class FornitoreDAOImpl implements FornitoreDAO {
 	}
 	
 	@Override
-	public Fornitore getFornitoreById(int id) 
+	public Fornitore getFornitoreById(Long id) 
 	{
 		Session session = this.sessionFactory.getCurrentSession();		
-		Fornitore f = (Fornitore) session.load(Fornitore.class, new Integer(id));
+		Fornitore f = (Fornitore) session.load(Fornitore.class, new Long(id));
 		logger.info("Person loaded successfully, Person details="+f);
 		return f;
 	}
@@ -66,4 +66,12 @@ public class FornitoreDAOImpl implements FornitoreDAO {
 			{	session.delete(f);  }
 		logger.info("Fornitore deleted successfully, fornitore details = "+f);	
 	}
+	@Override
+	public boolean validateFornitore(String p_iva, String passw) 
+	{
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Fornitore> fornitoreList = session.createQuery("from Fornitore").list();
+		return false;
+		
+	};
 }

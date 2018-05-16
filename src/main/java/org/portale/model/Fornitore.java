@@ -28,7 +28,7 @@ public class Fornitore implements Serializable
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "VW_RentalVendor_Id")
+	@Column(name = "vw_rental_vendor_id")
 	private Long VW_BodyRentalVendor_Id;
 
 	@Column(name = "Company")
@@ -62,7 +62,7 @@ public class Fornitore implements Serializable
 	@Column(name = "Post_Code")
 	private String postCode;
 
-	@Column(name = "Country_RegionCode")
+	@Column(name = "country_region_code")
 	private String countryRegionCode;
 
 	@Column(name = "E_mail")

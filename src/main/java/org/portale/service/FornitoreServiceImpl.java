@@ -37,7 +37,8 @@ public class FornitoreServiceImpl implements FornitoreService {
 
 	@Transactional
 	@Override
-	public Fornitore getFornitoreById(int id) {
+	public Fornitore getFornitoreById(Long id) 
+	{
 		return this.fornitoreDAO.getFornitoreById(id);
 	}
 
@@ -46,5 +47,12 @@ public class FornitoreServiceImpl implements FornitoreService {
 	public void removeFornitore(int id) {
 		this.fornitoreDAO.removeFornitore(id);
 	}
+	
+	@Override
+	public boolean validateFornitore(String p_iva, String passw) 
+	{
+		return this.fornitoreDAO.validateFornitore(p_iva, passw);
+		
+	};
 
 }

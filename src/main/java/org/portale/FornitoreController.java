@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class FornitoreController {
 		this.fornitoreService = fs;
 	}
 	
-	@GetMapping("/Suppliers.htm")
+	@RequestMapping("/Suppliers.htm")
 	public ModelAndView viewsSuppliers(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{
@@ -52,44 +51,45 @@ public class FornitoreController {
 		//return new ModelAndView("login", "message", message);
 		return mav;
 	}
+		
 	
 	
-	@RequestMapping(value = "/fornitori", method = RequestMethod.GET)
-	public String listPersons(Model model) {
+	
+	@RequestMapping(value = "/suppliers", method = RequestMethod.GET)
+	public String listSuppliers(Model model) {
 		model.addAttribute("fornitore", new Fornitore());
-		model.addAttribute("listFornitori", this.fornitoreService.listaFornitori());
+		model.addAttribute("listaFornitori", this.fornitoreService.listaFornitori());
 		return "fornitore";
 	}
 	
 	//For add and update person both
 	@RequestMapping(value= "/fornitore/add", method = RequestMethod.POST)
-	public String addPerson(@ModelAttribute("fornitore") Fornitore fornitore)
+	public String addSupplier(@ModelAttribute("fornitore") Fornitore fornitore)
 	{		
 		if(fornitore.getVW_BodyRentalVendor_Id() == 0)
-		   {			//new person, add it
+		   {			//new fornitore, add it
 			this.fornitoreService.addFornitore(fornitore);
 		   }
 		    else
 			    {	//existing person, call update
 				this.fornitoreService.updateFornitore(fornitore);
-				}
-		
-		return "redirect:/persons";
-		
+				}		
+		return "redirect:/suppliers";		
 	}
 	
 	@RequestMapping("/remove/{id}")
-    public String removePerson(@PathVariable("id") int id){
+    public String removeSupplier(@PathVariable("id") int id){
 		
         this.fornitoreService.removeFornitore(id);
-        return "redirect:/persons";
+        return "redirect:/suppliers";
     }
  
     @RequestMapping("/edit/{id}")
-    public String editPerson(@PathVariable("id") int id, Model model){
-        model.addAttribute("person", this.fornitoreService.getFornitoreById(id));
-        model.addAttribute("listPersons", this.fornitoreService.listaFornitori());
-        return "person";
+    public String editPerson(@PathVariable("id") Long id, Model model)
+    {
+        model.addAttribute("fornitore", this.fornitoreService.getFornitoreById(id));
+        model.addAttribute("listaFornitori", this.fornitoreService.listaFornitori());
+        return "fornitore";
     }
 	
 }
